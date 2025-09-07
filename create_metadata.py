@@ -15,6 +15,8 @@ for f in file:
             "size": stat.st_size,
             "datetime": datetime.fromtimestamp(stat.st_mtime).isoformat(),
             # "datetime": time.strftime("%Y-%m-%dT%H:%M:%S", time.localtime(stat.st_mtime))
+            "created": datetime.fromtimestamp(stat.st_ctime).isoformat(),
+            # "len_in_seconds":,
         }
 
     msg = json.dumps(metadata, ensure_ascii=False)
