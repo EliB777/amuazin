@@ -4,7 +4,7 @@ import gridfs
 from app.config import MONGO_HOST, MONGO_PORT, MONGO_DB
 
 class SaveMongoFS:
-    def _init_(self):
+    def __init__(self):
         self.cli = MongoClient(MONGO_HOST, MONGO_PORT)
         self.db = self.cli[MONGO_DB]
         self.fs = gridfs.GridFS(self.db)

@@ -3,7 +3,7 @@ from app.config import ES_URL, ES_INDEX
 
 # create index
 class SaveES:
-    def _init_(self):
+    def __init__(self):
         self.es = Elasticsearch(ES_URL)
         if not self.es.indices.exists(index=ES_INDEX):
             self.es.indices.create(index=ES_INDEX)

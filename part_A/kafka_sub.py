@@ -4,7 +4,7 @@ from app.config import KAFKA_BOOTSTRAP, TOPIC_IN
 
 # create Producer and sending to kafka
 class sendingToKafka:
-    def _init_(self):
+    def __init__(self):
         self.producer = KafkaProducer(
             bootstrap_servers=KAFKA_BOOTSTRAP,
             value_serializer=lambda v: json.dumps(v).encode("utf-8")

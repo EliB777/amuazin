@@ -18,7 +18,7 @@ def _ensure_topic(bootstrap: str, topic: str, partitions: int = 1, replication: 
         pass
     finally:
         admin.close()
-
+print("hi")
 def main():
     logger = Logger.get_logger()
     logger.info("started")
@@ -27,15 +27,20 @@ def main():
     # using logger if topic already exsist
     try:
         _ensure_topic(KAFKA_BOOTSTRAP, TOPIC_IN)
+        print("done")
     except Exception as e:
         logger.error(f"ensure_topic failed: {e}")
         print("ensure_topic failed")
         return
 
     folder = Path(AUDIO_DIR)
+    # folder = r"C:\Users\elibl\podcasts-20250907T074357Z-1-001\podcasts"
     paths = Reader().get_path(folder)
+    for i in paths:
+        print(i)
     builder = buildMeta()
     sender = sendingToKafka()
+
 
     # create metadata end sending + logger
     sent = 0
@@ -59,6 +64,13 @@ def main():
 
     logger.info(f"finished : sent={sent}")
     print("finished")
+# folder = Path(AUDIO_DIR)
+# paths = Reader().get_path(folder)
+# for i in paths:
+#     print(i)
+# builder = buildMeta()
+# sender = sendingToKafka()
+print("finished")
 
 if __name__ == "_main_":
     main()
