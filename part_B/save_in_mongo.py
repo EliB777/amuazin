@@ -9,13 +9,13 @@ class SaveMongoFS:
         self.db = self.cli[MONGO_DB]
         self.fs = gridfs.GridFS(self.db)
 
-    # seve the file with "gridfs" -> object
-    def put(self, enriched: dict):
-        p = Path(enriched["path"])
+    # seve the file with "gridfs" + metadata
+    def put(self, metadata: dict):
+        p = Path(metadata["path"])
         data = p.read_bytes()
-        file_id = self.fs.put(
+        return self.fs.put(
             data,
-            filename=enriched.get("name", p.name),
-            metadata=enriched
+            # id = metadata["id"],
+            # filename=metadata["name"],
+            metadata=metadata
         )
-        return file_id
