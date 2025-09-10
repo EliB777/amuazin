@@ -51,21 +51,34 @@ def decide_level(bds_percent: float, weighted: int) -> tuple[bool, str]:
     return bool(is_bds), level
 
 # העשרה אחרי סיווג
+# def enrich(msg: dict, transcript_field: str = "transcript") -> dict:
+#
+#     text = msg.get(transcript_field) or ""
+#     count_hostile, count_less_hostile = detect_counts(text)
+#     weighted = sum_of_detected(count_hostile, count_less_hostile)
+#     pct = percent(weighted, count_tokens(text))
+#     is_bds, level = decide_level(pct, weighted)
+#
+#     out = dict(msg)
+#     out["bds_percent"] = pct
+#     out["is_bds"] = is_bds
+#     out["bds_threat_level"] = level
+#     # בדיקה
+#     # out["bds_score_weighted"] = int(weighted)
+#     # out["bds_hits_strong"] = int(strong_hits)
+#     # out["bds_hits_weak"] = int(weak_hits)
+#
+#     return out
 def enrich(msg: dict, transcript_field: str = "transcript") -> dict:
-
     text = msg.get(transcript_field) or ""
     count_hostile, count_less_hostile = detect_counts(text)
     weighted = sum_of_detected(count_hostile, count_less_hostile)
     pct = percent(weighted, count_tokens(text))
     is_bds, level = decide_level(pct, weighted)
 
-    out = dict(msg)
-    out["bds_percent"] = pct
-    out["is_bds"] = is_bds
-    out["bds_threat_level"] = level
-    # בדיקה
-    # out["bds_score_weighted"] = int(weighted)
-    # out["bds_hits_strong"] = int(strong_hits)
-    # out["bds_hits_weak"] = int(weak_hits)
+    # עדכון ישיר על ה־msg עצמו
+    msg["bds_percent"] = pct
+    msg["is_bds"] = is_bds
+    msg["bds_threat_level"] = level
 
-    return out
+    return msg

@@ -9,4 +9,4 @@ class SaveES:
             self.es.indices.create(index=ES_INDEX)
 
     def index_doc(self, body: dict):
-        self.es.index(index=ES_INDEX, id=body.get("id"), document=body)
+        self.es.index(index=ES_INDEX, id=body.get("id"), document=body, refresh="wait_for")
